@@ -1,0 +1,37 @@
+##note: I was not able to fork the original programmingassignment2 repository (always got the error that there is no access anymore). 
+## that's why I created a new file here
+
+## to get the inverse of the given function, 
+## I set x as the input of the matrix and the solved value s to NULL
+## last, I switched every "mean" into "solve"
+
+
+makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
+  s <- NULL
+  set <- function(y) {
+    x <<- y
+    s <<- NULL
+  }
+  get <- function() x
+  setsolve <- function(solve) s <<- solve
+  getsolve <- function() s
+  list(set = set, get = get,
+       setsolve = setsolve,
+       getsolve = getsolve)
+}
+
+
+## for this function I did the same, just changed "mean" to "solve" and m to s
+## to get the inverse matrix of x
+
+cacheSolve <- function(x, ...) {
+  s <- x$getsolve()
+  if(!is.null(s)) {
+    message("getting inversed matrix")
+    return(s)
+  }
+  data <- x$get()
+  s <- solve(data, ...)
+  x$setsolve(s)
+  s
+}
